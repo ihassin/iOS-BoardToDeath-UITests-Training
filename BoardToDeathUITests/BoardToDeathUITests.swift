@@ -77,6 +77,24 @@ class BoardToDeathUITests: XCTestCase {
         
         XCTAssertTrue(app.textFields["pietpompies1"].exists)
     }
+    
+    func testImageDownload_WhenDownloadComplete_CaptionLabelShowing() {
+        let imageCaption = app.staticTexts["What a beautiful image!"]
+        let exists = NSPredicate(format: "exists == true")
+        
+        expectation(for: exists, evaluatedWith: imageCaption, handler: nil)
+        
+        app.swipeLeft()
+        app.swipeLeft()
+        
+        app.buttons["Done"].tap()
+        app.buttons["Awesome!"].tap()
+        app.buttons["Load Image"].tap()
+        
+        waitForExpectations(timeout: 10, handler: nil)
+        
+        XCTAssert(imageCaption.exists)
+    }
 }
 
 extension XCUIApplication {
