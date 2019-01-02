@@ -1,4 +1,4 @@
-# iOS-Placeholder-UITests-Training
+# iOS-BoardToDeath-UITests-Training
 This project serves as the code base for a training app built in the Devslopes iOS 12 course.
 
 ## Description
