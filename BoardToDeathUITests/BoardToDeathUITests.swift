@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import BoardToDeath
 
 class BoardToDeathUITests: XCTestCase {
     
@@ -30,5 +31,30 @@ class BoardToDeathUITests: XCTestCase {
         
         app.swipeLeft()
         XCTAssertTrue(app.staticTexts["Never Get Bored Again!"].exists)
+    }
+    
+    func testOnboarding_WhenDoneButtonTapped_PresentsAlert() {
+        app.swipeLeft()
+        app.swipeLeft()
+        
+        app.buttons["Done"].tap()
+        XCTAssertTrue(app.alerts["Alert"].exists)
+    }
+    
+    func testOnboarding_WhenFinished_OnboardVCDismisses() {
+        XCTAssertTrue(app.isDisplayingOnboarding)
+        
+        app.swipeLeft()
+        app.swipeLeft()
+        
+        app.buttons["Done"].tap()
+        XCTAssertFalse(app.isDisplayingOnboarding)
+    }
+    
+}
+
+extension XCUIApplication {
+    var isDisplayingOnboarding: Bool {
+        return otherElements["onboardingView"].exists
     }
 }
