@@ -16,6 +16,7 @@ class BoardToDeathUITests: XCTestCase {
     override func setUp() {
         continueAfterFailure = false
         app = XCUIApplication()
+        app.launchArguments.append("--uitesting")
         app.launch()
     }
 
@@ -33,14 +34,6 @@ class BoardToDeathUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Never Get Bored Again!"].exists)
     }
     
-    func testOnboarding_WhenDoneButtonTapped_PresentsAlert() {
-        app.swipeLeft()
-        app.swipeLeft()
-        
-        app.buttons["Done"].tap()
-        XCTAssertTrue(app.alerts["Alert"].exists)
-    }
-    
     func testOnboarding_WhenFinished_OnboardVCDismisses() {
         XCTAssertTrue(app.isDisplayingOnboarding)
         
@@ -51,10 +44,21 @@ class BoardToDeathUITests: XCTestCase {
         XCTAssertFalse(app.isDisplayingOnboarding)
     }
     
+    func testInterfaceVC_AlterViewShowns_WhenOnboardingComplete() {
+        app.swipeLeft()
+        app.swipeLeft()
+        
+        app.buttons["Done"].tap()
+        XCTAssertTrue(app.isDisplayingAlertVC)
+    }
 }
 
 extension XCUIApplication {
     var isDisplayingOnboarding: Bool {
         return otherElements["onboardingView"].exists
+    }
+    
+    var isDisplayingAlertVC: Bool {
+        return alerts["You did it!"].exists
     }
 }
