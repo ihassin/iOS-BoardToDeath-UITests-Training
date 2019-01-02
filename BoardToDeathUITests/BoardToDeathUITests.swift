@@ -51,6 +51,32 @@ class BoardToDeathUITests: XCTestCase {
         app.buttons["Done"].tap()
         XCTAssertTrue(app.isDisplayingAlertVC)
     }
+    
+    func testEmailInput_WhenGivenEmail_FillsTextField() {
+        app.swipeLeft()
+        app.swipeLeft()
+        
+        app.buttons["Done"].tap()
+        
+        let emailTextField = app.textFields["Email"]
+        emailTextField.tap()
+        emailTextField.typeText("akamffer@mweb.co.za")
+        
+        XCTAssertTrue(app.textFields["akamffer@mweb.co.za"].exists)
+    }
+    
+    func testPasswordInput_WhenGivenPassword_FillsTextField() {
+        app.swipeLeft()
+        app.swipeLeft()
+        
+        app.buttons["Done"].tap()
+        
+        let emailTextField = app.textFields["Password"]
+        emailTextField.tap()
+        emailTextField.typeText("pietpompies1")
+        
+        XCTAssertTrue(app.textFields["pietpompies1"].exists)
+    }
 }
 
 extension XCUIApplication {
